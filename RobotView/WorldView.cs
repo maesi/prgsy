@@ -266,8 +266,12 @@ namespace RobotView
                     #region Parkplatz zeichnen
                     if (robot.Finished && !robot.Running)
                     {
-                        double _parkingX = robotPosition.X - Math.Abs(robotPosition.X % 0.5);
-                        double _parkingY = robotPosition.Y + Math.Abs(robotPosition.Y % 0.5);
+                        //double _parkingX = robotPosition.X - Math.Abs(robotPosition.X % 0.5);
+                        //double _parkingY = robotPosition.Y + Math.Abs(robotPosition.Y % 0.5);
+
+                        double _parkingX = Convert.ToInt32(robotPosition.X / 0.5) * 0.5;
+                        double _parkingY = Convert.ToInt32(robotPosition.Y / 0.5) * 0.5;
+
                         g.FillRectangle(new SolidBrush(Color.LightBlue), XtoScreen(_parkingX), YtoScreen(_parkingY), WidthToScreen(0.5f), HeightToScreen(0.5f));
                     }
                     #endregion
