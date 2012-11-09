@@ -43,7 +43,7 @@
             // consoleView1
             // 
             this.consoleView1.BackColor = System.Drawing.Color.Black;
-            this.consoleView1.Location = new System.Drawing.Point(25, 318);
+            this.consoleView1.Location = new System.Drawing.Point(69, 306);
             this.consoleView1.Name = "consoleView1";
             this.consoleView1.RobotConsole = null;
             this.consoleView1.Size = new System.Drawing.Size(210, 50);
@@ -54,11 +54,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(638, 587);
+            this.ClientSize = new System.Drawing.Size(334, 366);
             this.Controls.Add(this.consoleView1);
             this.Controls.Add(this.driveView1);
             this.Name = "FormWorldControl";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.FormWorldControl_Load);
             this.ResumeLayout(false);
 
         }

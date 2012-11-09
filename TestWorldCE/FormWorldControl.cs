@@ -75,5 +75,10 @@ namespace TestWorldCE
             fww.ClientSize = new Size(fww.ClientSize.Width, fww.ClientSize.Width);
             fww.Location = new Point(Screen.PrimaryScreen.WorkingArea.Width - fww.Width, 0);
         }
+
+        private void FormWorldControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

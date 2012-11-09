@@ -264,7 +264,7 @@ namespace RobotView
                     PositionInfo robotPosition = robot.Drive.Position;
                     
                     #region Parkplatz zeichnen
-                    if (robot.Finished)
+                    if (robot.Finished && !robot.Running)
                     {
                         double _parkingX = robotPosition.X - Math.Abs(robotPosition.X % 0.5);
                         double _parkingY = robotPosition.Y + Math.Abs(robotPosition.Y % 0.5);

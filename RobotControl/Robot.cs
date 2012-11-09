@@ -32,8 +32,7 @@ namespace RobotCtrl
                 return 0.14f;
             }
         }
-
-
+        
         public Robot(RunMode aRunMode)
         {
             this.RunMode = aRunMode;
@@ -55,9 +54,18 @@ namespace RobotCtrl
             SwitchEventArgs _switchEvent = (SwitchEventArgs)e;
             if (_switchEvent.Swi == Switches.Switch1)
             {
-                //initDrive();
                 if (_switchEvent.SwitchEnabled)
                 {
+                    if (Finished || Aborted)
+                    {
+                        Drive.Position = new PositionInfo(0, 0, 90f);
+                        positions = new List<PositionInfo>(); 
+                        Finished = false;
+                        Aborted = false;
+                        step = 1;
+                    }
+
+                    Running = true;
                     this.thread = new Thread(Run);
                     this.thread.IsBackground = true;
                     this.thread.Priority = ThreadPriority.Highest;
@@ -74,35 +82,45 @@ namespace RobotCtrl
         #region Fahrbefehle
 
         private Thread thread;
-        private bool running = true;
-        private bool finished = false;
-        public bool Finished
-        {
+        public bool Running {
             get
             {
-                return finished && !running;
+                return running;
+            }
+            set {
+                running = value;
+                if (running)
+                {
+                    this.RobotConsole[Leds.Led1].LedEnabled = true;
+                }
+                else
+                {
+                    this.RobotConsole[Leds.Led1].LedEnabled = false;
+                }
             }
         }
+        private bool running;
+        public bool Finished { get; set; }
+        public bool Aborted { get; set; }
 
+        int step = 1;
         private void Run()
         {
-            int _step = 0;
 
             float _speed = 0.5f;
             float _acc = 0.3f;
-
-            while (running)
+            while (Running)
             {
                 PositionInfo _pos = World.Robot.Drive.Position;
                 if (positions.Capacity == 0 || !_pos.Equals(positions.Last()))
                 {
                     positions.Add(_pos);
                 }
-                if (Drive.Done)
+                if (Drive.Done || step == 99)
                 {
-                    if (!finished)
+                    if (!Finished && !Aborted)
                     {
-                        switch (++_step)
+                        switch (step++)
                         {
                             case 1:
                                 Drive.RunTurn(-90f, _speed, _acc);
@@ -110,7 +128,7 @@ namespace RobotCtrl
                             case 2:
                                 //Drive.RunLine(0.75f, _speed, _acc);
                                 Drive.RunArcLeft(0.75f, 90f, _speed, _acc);
-                                _step = 3;
+                                step = 4;
                                 break;
                             case 3:
                                 Drive.RunTurn(90f, _speed, _acc);
@@ -127,7 +145,7 @@ namespace RobotCtrl
                                 else
                                 {
                                     Drive.RunLine(0.5f, _speed, _acc);
-                                    finished = true;
+                                    Finished = true;
                                 }
                                 break;
                             case 6:
@@ -135,13 +153,17 @@ namespace RobotCtrl
                                 break;
                             case 7:
                                 Drive.RunTurn(-90f, _speed, _acc);
-                                _step = 4;
+                                step = 5;
+                                break;
+                            case 99:
+                                Drive.Halt();
+                                Aborted = true;
                                 break;
                         }
                     }
                     else
                     {
-                        running = false;
+                        Running = false;
                     }
                 }
                 else
@@ -153,8 +175,7 @@ namespace RobotCtrl
 
         private void Stop()
         {
-            Drive.Halt();
-            running = false;
+            step = 99;
         }
 
         #endregion
