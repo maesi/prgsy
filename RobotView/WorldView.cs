@@ -152,13 +152,11 @@ namespace RobotView
         private int WidthToScreen(float aDistanceInM)
         {
             double _width = (aDistanceInM * getScaleFactor());
-
             return Convert.ToInt32(_width);
         }
 
         private double getScaleFactor()
         {
-
             //get scale factors for height and width of the current form
             double heightScaleFactor = this.Height / (viewPort.yMax - viewPort.yMin);
             double widthScaleFactor = this.Width / (viewPort.xMax - viewPort.xMin);
@@ -256,8 +254,7 @@ namespace RobotView
                 }
                 #endregion
 
-
-
+                #region Roboter
                 Robot robot = World.Robot;
                 if (robot != null)
                 {
@@ -303,7 +300,9 @@ namespace RobotView
                     XtoScreen(radarPos.X + distance * Math.Cos(radarPhi)),
                     YtoScreen(radarPos.Y + distance * Math.Sin(radarPhi)));
                     #endregion
+
                 }
+                #endregion
 
             }
 

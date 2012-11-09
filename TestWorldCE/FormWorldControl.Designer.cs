@@ -59,9 +59,7 @@
             this.Controls.Add(this.driveView1);
             this.Name = "FormWorldControl";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.FormWorldControl_Load);
             this.ResumeLayout(false);
-
         }
 
         #endregion
