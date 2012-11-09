@@ -65,7 +65,7 @@ namespace TestWorldCE
                 fww.StartPosition = FormStartPosition.Manual;
 
                 World.ObstacleMap = new ObstacleMap(
-                    RobotView.Resource.ObstacleMap2, -1.25f, 1.25f, -0.25f, 2.25f);
+                    RobotView.Resource.ObstacleMap1, -1.25f, 1.25f, -0.25f, 2.25f);
             }
             this.Location = new Point(0, 0);
             int width = Math.Min(
