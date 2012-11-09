@@ -25,13 +25,11 @@ namespace TestWorldCE
                 runMode = RunMode.Virtual;
             }
 
-
-            Drive _drive = new Drive(runMode);
-            _drive.Position = new PositionInfo(0, 0, 90);
-
             Robot _robot = new Robot(runMode);
+            Drive _drive = _robot.Drive;
+            _drive.Power = true;
+            _drive.Position = new PositionInfo(0, 0, 90);
             _robot.Color = Color.Red;
-            _robot.Drive = _drive;
 
             World.Robot = _robot;
 
@@ -58,15 +56,14 @@ namespace TestWorldCE
             fww = new FormWorldView();
             fww.ViewPort = new RobotView.ViewPort(-1.25, 1.25, -0.25, 2.25);
             fww.Show();
-            // FormWorldControl in die obere, linke Ecke setzen
-            if (!Constants.IsWinCE)
-            {
+ 
+#if !WindowsCE
                 this.StartPosition = FormStartPosition.Manual;
                 fww.StartPosition = FormStartPosition.Manual;
 
                 World.ObstacleMap = new ObstacleMap(
                     RobotView.Resource.ObstacleMap1, -1.25f, 1.25f, -0.25f, 2.25f);
-            }
+#endif
             this.Location = new Point(0, 0);
             int width = Math.Min(
             Screen.PrimaryScreen.WorkingArea.Height,

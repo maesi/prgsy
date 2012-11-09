@@ -46,10 +46,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="RobotControl, Version=1.0.4695.25486, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RobotControl\bin\Debug\RobotControl.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -96,6 +92,10 @@
     <ProjectReference Include="..\RobotControl\RobotCtrl.csproj">
       <Project>{D9856181-5510-410F-8C64-BF6A9B397267}</Project>
       <Name>RobotCtrl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RobotIO\RobotIO.csproj">
+      <Project>{755A2112-CE0D-411F-A940-399F99671BF1}</Project>
+      <Name>RobotIO</Name>
     </ProjectReference>
     <ProjectReference Include="..\RobotView\RobotView.csproj">
       <Project>{8A507829-DDA7-46C2-AFE7-EF787DA4B554}</Project>

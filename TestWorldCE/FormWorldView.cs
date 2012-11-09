@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using RobotView;
+using RobotCtrl;
 
 namespace TestWorldCE
 {
@@ -30,7 +31,19 @@ namespace TestWorldCE
 
         public void SaveImage()
         {
-            this.worldView1.SaveImage("screen.bmp");
+            if (InvokeRequired)
+            {
+                Invoke(new Action(SaveImage));
+            }
+            else
+            {
+                string _filename = "screen.bmp";
+                if (Constants.IsWinCE)
+                {
+                    _filename = "\\CompactFlash\\FtpRoot\\screen.bmp";
+                }
+                this.worldView1.SaveImage(_filename);
+            }
         }
     }
 }
